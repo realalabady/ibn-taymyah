@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 /*
-  Brand tokens. The accent is a placeholder until the logo arrives:
-  change --accent / --accent-ink / --accent-soft here and the whole site follows.
+  Brand tokens, taken from the logo:
+  - accent: the logo's deep green (all interactive elements)
+  - sun: the logo's yellow, used sparingly as a warm highlight, never for controls
 
   Radius system (keep it consistent):
   - interactive controls: full pill
@@ -10,30 +11,34 @@
   - inputs: 1rem
 */
 :root {
-  --bg: #f4f6f4;
-  --surface: #fbfcfb;
-  --surface-2: #eaeeeb;
-  --ink: #12201a;
-  --ink-muted: #56645d;
-  --line: rgb(18 32 26 / 0.09);
-  --accent: #1e6b50;
-  --accent-ink: #f3faf6;
-  --accent-soft: #d9ebe2;
-  --shadow: 0 1px 2px rgb(18 40 30 / 0.05), 0 12px 40px -12px rgb(18 40 30 / 0.14);
+  --bg: #f5f7f3;
+  --surface: #fcfdfb;
+  --surface-2: #ebefe7;
+  --ink: #102414;
+  --ink-muted: #536255;
+  --line: rgb(16 36 20 / 0.09);
+  --accent: #0d6a22;
+  --accent-ink: #f3faf2;
+  --accent-soft: #e0efd9;
+  --sun: #f0d530;
+  --sun-soft: #fbf3c8;
+  --shadow: 0 1px 2px rgb(13 60 25 / 0.05), 0 12px 40px -12px rgb(13 60 25 / 0.16);
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0b1210;
-    --surface: #111a17;
-    --surface-2: #17221e;
-    --ink: #e6ece9;
-    --ink-muted: #98a69f;
-    --line: rgb(230 236 233 / 0.09);
-    --accent: #5cbf95;
-    --accent-ink: #06130e;
-    --accent-soft: #163128;
+    --bg: #09130c;
+    --surface: #0f1b12;
+    --surface-2: #152419;
+    --ink: #e6efe7;
+    --ink-muted: #97a89a;
+    --line: rgb(230 239 231 / 0.09);
+    --accent: #4fbf68;
+    --accent-ink: #04130a;
+    --accent-soft: #14301b;
+    --sun: #f0d530;
+    --sun-soft: #2e2a0d;
     --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 48px -16px rgb(0 0 0 / 0.6);
     color-scheme: dark;
   }
@@ -49,6 +54,8 @@
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-accent-soft: var(--accent-soft);
+  --color-sun: var(--sun);
+  --color-sun-soft: var(--sun-soft);
   --shadow-soft: var(--shadow);
   --font-sans: var(--ff-body);
   --font-display: var(--ff-display);

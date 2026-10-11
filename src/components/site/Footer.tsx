@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { navLinks, site, whatsappLink } from "@/site.config";
-import { Logo } from "./Logo";
+import { LogoFull } from "./Logo";
 
 export function Footer() {
   return (
     <footer className="border-t border-line px-4 pt-16 pb-10">
       <div className="mx-auto flex max-w-6xl flex-col gap-12 md:flex-row md:justify-between">
         <div className="max-w-sm">
-          <Logo />
+          <LogoFull />
           <p className="mt-5 leading-relaxed text-ink-muted">{site.description}</p>
         </div>
 

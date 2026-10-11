@@ -1,14 +1,13 @@
 // Everything a manager might want to change about the site's fixed text lives here.
 export const site = {
-  shortName: "ابن تيمية",
-  name: "حلقات ابن تيمية لتحفيظ القرآن الكريم",
+  shortName: "مجمع ابن تيمية",
+  name: "مجمع ابن تيمية القرآني",
   description:
     "حلقات تحفيظ القرآن الكريم للأبناء تجمع بين إتقان الحفظ وحسن التلاوة والتربية على أخلاق القرآن.",
-  // TODO: replace with the real WhatsApp number in international format, digits only (e.g. 9665XXXXXXXX).
-  whatsapp: "966500000000",
-  // TODO: replace with the real location of the halaqat.
-  location: "المسجد، الحي، المدينة",
-  registerMessage: "السلام عليكم، أرغب في تسجيل ابني في حلقات ابن تيمية.",
+  // WhatsApp number in international format, digits only.
+  whatsapp: "966534959517",
+  location: "ابن تيمية الظهران الدانة الشمالية الخبر",
+  registerMessage: "السلام عليكم، أرغب في تسجيل ابني في مجمع ابن تيمية القرآني.",
 };
 
 export const whatsappLink = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.registerMessage)}`;

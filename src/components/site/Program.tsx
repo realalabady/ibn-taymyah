@@ -103,7 +103,7 @@ function Cell({
   return (
     <article
       className={`flex h-full min-h-72 flex-col justify-between gap-10 rounded-[2rem] p-8 ${
-        tinted ? "bg-surface-2" : "bg-surface ring-1 ring-line"
+        tinted ? "bg-sun-soft" : "bg-surface ring-1 ring-line"
       }`}
     >
       <span className="text-accent">{icon}</span>

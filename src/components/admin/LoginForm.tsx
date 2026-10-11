@@ -6,7 +6,7 @@ import { FirebaseError } from "firebase/app";
 import { motion, useReducedMotion } from "motion/react";
 import { auth } from "@/lib/firebase/client";
 import { motionTokens } from "@/lib/motion";
-import { Logo } from "@/components/site/Logo";
+import { LogoFull } from "@/components/site/Logo";
 import { Btn, Field, Input, Notice } from "./ui";
 
 function messageFor(error: unknown) {
@@ -48,7 +48,7 @@ export function LoginForm() {
         transition={{ duration: 0.7, ease: motionTokens.easing.smooth }}
       >
         <div className="mb-8 flex justify-center">
-          <Logo />
+          <LogoFull className="w-36" />
         </div>
         <div className="rounded-[2rem] bg-surface-2/70 p-2 ring-1 ring-line">
           <form onSubmit={onSubmit} className="flex flex-col gap-5 rounded-[1.5rem] bg-surface p-7 shadow-soft md:p-9">

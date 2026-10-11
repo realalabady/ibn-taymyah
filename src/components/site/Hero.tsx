@@ -14,7 +14,10 @@ export async function Hero() {
         <Stagger className="flex flex-col items-start gap-7">
           <StaggerItem>
             <h1 className="font-display text-[2.6rem] leading-[1.25] font-semibold tracking-tight md:text-6xl md:leading-[1.2]">
-              نُنشئ جيلاً يحفظ القرآن <span className="text-accent">ويعمل به</span>
+              نُنشئ جيلاً يحفظ القرآن{" "}
+              <span className="bg-[linear-gradient(transparent_68%,var(--sun-soft)_68%,var(--sun-soft)_94%,transparent_94%)] text-accent">
+                ويعمل به
+              </span>
             </h1>
           </StaggerItem>
           <StaggerItem>
@@ -45,7 +48,7 @@ export async function Hero() {
                   className="media-outline object-cover"
                 />
               ) : (
-                <div className="flex h-full flex-col items-center justify-center gap-4 p-10 text-center">
+                <div className="flex h-full flex-col items-center justify-center gap-4 bg-[radial-gradient(circle_at_50%_38%,var(--sun-soft)_0%,var(--sun-soft)_34%,transparent_70%)] p-10 text-center">
                   <span className="font-quran text-[7rem] leading-none text-accent md:text-[9rem]">اقْرَأْ</span>
                   <span className="text-sm text-ink-muted">بِاسْمِ رَبِّكَ الَّذِي خَلَقَ</span>
                 </div>
