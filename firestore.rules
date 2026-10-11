@@ -1,0 +1,37 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // A user is a manager only if a doc exists at admins/{uid}.
+    // Add that doc by hand in the Firebase console; nobody can create it from the app.
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    match /admins/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    match /posts/{id} {
+      allow read: if resource.data.published == true || isAdmin();
+      allow create, update: if isAdmin()
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 200
+        && request.resource.data.body is string
+        && request.resource.data.body.size() <= 100000
+        && request.resource.data.published is bool;
+      allow delete: if isAdmin();
+    }
+
+    match /media/{id} {
+      allow read: if true;
+      allow create, update: if isAdmin()
+        && request.resource.data.type in ['image', 'video']
+        && request.resource.data.url is string;
+      allow delete: if isAdmin();
+    }
+  }
+}

@@ -1,26 +1,127 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+  Brand tokens. The accent is a placeholder until the logo arrives:
+  change --accent / --accent-ink / --accent-soft here and the whole site follows.
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  Radius system (keep it consistent):
+  - interactive controls: full pill
+  - cards: outer shell 2rem, inner core 2rem - shell padding
+  - inputs: 1rem
+*/
+:root {
+  --bg: #f4f6f4;
+  --surface: #fbfcfb;
+  --surface-2: #eaeeeb;
+  --ink: #12201a;
+  --ink-muted: #56645d;
+  --line: rgb(18 32 26 / 0.09);
+  --accent: #1e6b50;
+  --accent-ink: #f3faf6;
+  --accent-soft: #d9ebe2;
+  --shadow: 0 1px 2px rgb(18 40 30 / 0.05), 0 12px 40px -12px rgb(18 40 30 / 0.14);
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #0b1210;
+    --surface: #111a17;
+    --surface-2: #17221e;
+    --ink: #e6ece9;
+    --ink-muted: #98a69f;
+    --line: rgb(230 236 233 / 0.09);
+    --accent: #5cbf95;
+    --accent-ink: #06130e;
+    --accent-soft: #163128;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 48px -16px rgb(0 0 0 / 0.6);
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --shadow-soft: var(--shadow);
+  --font-sans: var(--ff-body);
+  --font-display: var(--ff-display);
+  --font-quran: var(--ff-quran);
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--ff-body), system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.media-outline {
+  outline: 1px solid rgb(0 0 0 / 0.08);
+  outline-offset: -1px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .media-outline {
+    outline-color: rgb(255 255 255 / 0.08);
+  }
+}
+
+/* Long-form Arabic reading for blog posts */
+.prose-ar {
+  font-size: 1.125rem;
+  line-height: 2.05;
+  color: var(--ink);
+}
+
+.prose-ar > * + * {
+  margin-top: 1.4em;
+}
+
+.prose-ar h2 {
+  font-family: var(--ff-display);
+  font-size: 1.6rem;
+  line-height: 1.4;
+  font-weight: 600;
+  margin-top: 2.2em;
 }
