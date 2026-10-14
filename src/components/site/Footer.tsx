@@ -34,7 +34,7 @@ export function Footer() {
 
       <div className="mx-auto mt-14 flex max-w-6xl flex-col gap-2 text-sm text-ink-muted sm:flex-row sm:justify-between">
         <p>جميع الحقوق محفوظة لـ{site.name}</p>
-        <Link href="/admin" className="transition-colors hover:text-ink">
+        <Link href="/login" className="transition-colors hover:text-ink">
           دخول الإدارة
         </Link>
       </div>

@@ -5,9 +5,9 @@ import mark from "../../../public/logo-mark.png";
 import full from "../../../public/logo.png";
 
 // Compact lockup for the nav: emblem + name. The wordmark inside the logo file is too small to read at this size.
-export function Logo({ className = "" }: { className?: string }) {
+export function Logo({ className = "", href = "/" }: { className?: string; href?: string }) {
   return (
-    <Link href="/" className={`group inline-flex items-center gap-3 ${className}`} aria-label={site.name}>
+    <Link href={href} className={`group inline-flex items-center gap-3 ${className}`} aria-label={site.name}>
       <Image
         src={mark}
         alt=""

@@ -26,24 +26,6 @@
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #09130c;
-    --surface: #0f1b12;
-    --surface-2: #152419;
-    --ink: #e6efe7;
-    --ink-muted: #97a89a;
-    --line: rgb(230 239 231 / 0.09);
-    --accent: #4fbf68;
-    --accent-ink: #04130a;
-    --accent-soft: #14301b;
-    --sun: #f0d530;
-    --sun-soft: #2e2a0d;
-    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 48px -16px rgb(0 0 0 / 0.6);
-    color-scheme: dark;
-  }
-}
-
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -62,6 +44,33 @@
   --font-quran: var(--ff-quran);
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-marquee: marquee 45s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    /* RTL: the track is two identical halves, so moving by one half loops seamlessly. */
+    to {
+      transform: translateX(50%);
+    }
+  }
+}
+
+/* Photo slideshow: the active dot fills up, and the end of the fill advances the slide. */
+@keyframes slide-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.slide-progress {
+  animation-name: slide-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }
 
 html {
@@ -74,6 +83,17 @@ html {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* Endless program bar */
+.marquee:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
   }
 }
 
@@ -106,12 +126,6 @@ p {
 .media-outline {
   outline: 1px solid rgb(0 0 0 / 0.08);
   outline-offset: -1px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .media-outline {
-    outline-color: rgb(255 255 255 / 0.08);
-  }
 }
 
 /* Long-form Arabic reading for blog posts */

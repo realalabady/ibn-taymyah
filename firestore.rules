@@ -33,5 +33,41 @@ service cloud.firestore {
         && request.resource.data.url is string;
       allow delete: if isAdmin();
     }
+
+    // ---- Etqan (halaqa management). Admin-only for now; teachers get their own rules later. ----
+    // Records are never deleted (archive instead), and every update bumps `version` by exactly one
+    // so two people editing the same record can't silently overwrite each other.
+    match /{collection}/{id} {
+      allow read: if isAdmin()
+        && collection.matches('etqan_(organizations|centers|mosques|circles|periods|programs|curricula|courses|users|settings|audit|meta)');
+      allow create: if isAdmin()
+        && collection.matches('etqan_(organizations|centers|mosques|circles|periods|programs|curricula|courses|users)')
+        && request.resource.data.version == 1
+        && request.resource.data.archivedAt == null;
+      allow update: if isAdmin()
+        && collection.matches('etqan_(organizations|centers|mosques|circles|periods|programs|curricula|courses|users)')
+        && request.resource.data.version == resource.data.version + 1
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.createdBy == resource.data.createdBy;
+      allow delete: if false;
+    }
+
+    // Settings are insert-only: each change is a new version doc `${key}@${version}`.
+    match /etqan_settings/{id} {
+      allow create: if isAdmin()
+        && id == request.resource.data.key + '@' + string(request.resource.data.version);
+      allow update, delete: if false;
+    }
+
+    // Audit log is append-only; the head doc tracks the last link of the hash chain.
+    match /etqan_audit/{id} {
+      allow create: if isAdmin() && request.resource.data.actorId == request.auth.uid;
+      allow update, delete: if false;
+    }
+    match /etqan_meta/audit_head {
+      allow create: if isAdmin() && request.resource.data.chainNo == 1;
+      allow update: if isAdmin() && request.resource.data.chainNo == resource.data.chainNo + 1;
+      allow delete: if false;
+    }
   }
 }

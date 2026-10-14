@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Etqan source package, kept for reference; its logic is ported into src/lib/etqan.
+    "etqan-phase1/**",
   ]),
 ]);
 

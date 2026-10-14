@@ -104,7 +104,7 @@ export function PostEditor() {
       replacedCovers.current = [];
 
       await publishChanges(user);
-      router.push("/admin/posts");
+      router.push("/login/posts");
     } catch {
       setError("تعذّر حفظ المقال. حاول مرة أخرى.");
       setSaving(false);
@@ -123,7 +123,7 @@ export function PostEditor() {
   return (
     <form onSubmit={onSubmit} className="mx-auto flex max-w-3xl flex-col gap-8">
       <div>
-        <Link href="/admin/posts" className="inline-flex items-center gap-2 text-sm text-ink-muted transition-colors hover:text-ink">
+        <Link href="/login/posts" className="inline-flex items-center gap-2 text-sm text-ink-muted transition-colors hover:text-ink">
           <ArrowRight size={16} />
           المقالات
         </Link>
@@ -204,7 +204,7 @@ export function PostEditor() {
         <Btn type="submit" loading={saving} disabled={coverProgress !== null}>
           {draft.published ? "حفظ ونشر" : "حفظ كمسودة"}
         </Btn>
-        <Link href="/admin/posts" className="rounded-full px-5 py-3 text-sm text-ink-muted transition-colors hover:bg-surface-2">
+        <Link href="/login/posts" className="rounded-full px-5 py-3 text-sm text-ink-muted transition-colors hover:bg-surface-2">
           إلغاء
         </Link>
       </div>

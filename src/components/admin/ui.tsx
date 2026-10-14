@@ -4,11 +4,11 @@ import { useEffect, useRef, useState, type ButtonHTMLAttributes, type InputHTMLA
 
 export function Field({ label, hint, error, children }: { label: string; hint?: string; error?: string; children: ReactNode }) {
   return (
-    <label className="flex flex-col gap-2">
-      <span className="text-sm font-medium">{label}</span>
+    <label className="flex flex-col gap-2.5">
+      <span className="text-[15px] font-medium">{label}</span>
       {children}
-      {hint && !error && <span className="text-sm text-ink-muted">{hint}</span>}
-      {error && <span className="text-sm text-red-600 dark:text-red-400">{error}</span>}
+      {hint && !error && <span className="text-[15px] text-ink-muted">{hint}</span>}
+      {error && <span className="text-[15px] text-red-600">{error}</span>}
     </label>
   );
 }
@@ -30,13 +30,13 @@ export function Btn({ variant = "primary", loading, children, className = "", di
   const styles = {
     primary: "bg-accent text-accent-ink hover:brightness-110",
     ghost: "ring-1 ring-line hover:bg-surface-2",
-    danger: "text-red-700 ring-1 ring-red-600/25 hover:bg-red-600/10 dark:text-red-400",
+    danger: "text-red-700 ring-1 ring-red-600/25 hover:bg-red-600/10",
   }[variant];
   return (
     <button
       {...rest}
       disabled={disabled || loading}
-      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-medium whitespace-nowrap transition-[transform,background-color,filter] duration-200 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 ${styles} ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-[15px] font-medium whitespace-nowrap transition-[transform,background-color,filter] duration-200 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 ${styles} ${className}`}
     >
       {loading && <span className="size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />}
       {children}
@@ -83,11 +83,11 @@ export function ConfirmDelete({ onConfirm, label = "حذف" }: { onConfirm: () =
 export function Notice({ tone = "info", children }: { tone?: "info" | "error" | "success"; children: ReactNode }) {
   const styles = {
     info: "bg-surface-2 text-ink",
-    error: "bg-red-600/10 text-red-700 dark:text-red-300",
+    error: "bg-red-600/10 text-red-700",
     success: "bg-accent-soft text-accent",
   }[tone];
   return (
-    <p role={tone === "error" ? "alert" : "status"} className={`rounded-2xl px-4 py-3 text-sm ${styles}`}>
+    <p role={tone === "error" ? "alert" : "status"} className={`rounded-2xl px-4 py-3 text-[15px] ${styles}`}>
       {children}
     </p>
   );

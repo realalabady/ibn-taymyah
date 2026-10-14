@@ -12,9 +12,10 @@ export const site = {
 
 export const whatsappLink = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.registerMessage)}`;
 
+// The site is one page: every link scrolls to a section on the home page.
 export const navLinks = [
   { href: "/#program", label: "البرنامج" },
-  { href: "/#journey", label: "طريقة التسجيل" },
-  { href: "/gallery", label: "المعرض" },
-  { href: "/blog", label: "المدونة" },
+  { href: "/#gallery", label: "المعرض" },
+  { href: "/#blog", label: "المدونة" },
+  { href: "/#contact", label: "تواصل معنا" },
 ];

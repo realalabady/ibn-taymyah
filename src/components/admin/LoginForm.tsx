@@ -53,8 +53,8 @@ export function LoginForm() {
         <div className="rounded-[2rem] bg-surface-2/70 p-2 ring-1 ring-line">
           <form onSubmit={onSubmit} className="flex flex-col gap-5 rounded-[1.5rem] bg-surface p-7 shadow-soft md:p-9">
             <div>
-              <h1 className="font-display text-2xl font-semibold">دخول الإدارة</h1>
-              <p className="mt-1 text-ink-muted">خاص بمشرف الموقع لإدارة الصور والمقالات.</p>
+              <h1 className="font-display text-2xl font-semibold">دخول لوحة التحكم</h1>
+              <p className="mt-1 text-ink-muted">خاص بإدارة المجمع: الحلقات والمستخدمون ومحتوى الموقع.</p>
             </div>
             <Field label="البريد الإلكتروني">
               <Input type="email" dir="ltr" autoComplete="username" required value={email} onChange={(e) => setEmail(e.target.value)} />

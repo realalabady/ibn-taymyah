@@ -22,9 +22,9 @@ export default function PostPage(props: PageProps<"/blog/[id]">) {
   return (
     <article className="px-4 pt-32 pb-24 md:pt-40">
       <div className="mx-auto max-w-3xl">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-ink-muted transition-colors hover:text-ink">
+        <Link href="/#blog" className="inline-flex items-center gap-2 text-sm text-ink-muted transition-colors hover:text-ink">
           <ArrowRight size={16} />
-          كل المقالات
+          العودة إلى المدونة
         </Link>
         <Suspense fallback={<PostSkeleton />}>
           <PostContent params={props.params} />

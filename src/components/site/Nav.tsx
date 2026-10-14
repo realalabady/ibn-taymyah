@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
-import { navLinks, site, whatsappLink } from "@/site.config";
+import { navLinks, site } from "@/site.config";
 import { motionTokens } from "@/lib/motion";
 import { Logo } from "./Logo";
 
@@ -24,10 +24,8 @@ export function Nav() {
         <nav
           aria-label="القائمة الرئيسية"
           className={`mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 rounded-full ps-3 pe-2 transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-spring ${
-            scrolled || open
-              ? "bg-surface/80 shadow-soft ring-1 ring-line backdrop-blur-xl"
-              : "bg-transparent"
-          }`}
+            scrolled || open ? "bg-surface/85 shadow-soft" : "bg-surface/70"
+          } ring-1 ring-line backdrop-blur-xl`}
         >
           <Logo />
 
@@ -45,15 +43,6 @@ export function Nav() {
           </ul>
 
           <div className="flex items-center gap-2">
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-ink transition-transform duration-300 ease-spring active:scale-[0.97] sm:inline-flex"
-            >
-              سجّل ابنك
-            </a>
-
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -88,7 +77,7 @@ export function Nav() {
             transition={{ duration: motionTokens.duration.normal, ease: motionTokens.easing.smooth }}
           >
             <ul className="flex h-full flex-col justify-center gap-2 px-8">
-              {[...navLinks, { href: whatsappLink, label: "سجّل ابنك" }].map((link, i) => (
+              {navLinks.map((link, i) => (
                 <li key={link.href} className="overflow-hidden">
                   <motion.div
                     initial={reduce ? { opacity: 0 } : { y: "100%", opacity: 0 }}
@@ -103,7 +92,6 @@ export function Nav() {
                       href={link.href}
                       onClick={() => setOpen(false)}
                       className="block py-3 font-display text-4xl font-medium"
-                      {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     >
                       {link.label}
                     </Link>

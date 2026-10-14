@@ -104,7 +104,8 @@ export function MediaManager() {
   async function setFeatured(item: MediaItem) {
     const batch = writeBatch(db);
     for (const other of items ?? []) {
-      if (other.featured && other.id !== item.id) batch.update(doc(db, "media", other.id), { featured: false });
+      // One starred photo (hero) and one starred video (video section) at a time.
+      if (other.featured && other.type === item.type && other.id !== item.id) batch.update(doc(db, "media", other.id), { featured: false });
     }
     batch.update(doc(db, "media", item.id), { featured: !item.featured });
     await batch.commit();
@@ -137,7 +138,9 @@ export function MediaManager() {
     <div className="flex flex-col gap-10">
       <div>
         <h1 className="font-display text-3xl font-semibold">الصور والمقاطع</h1>
-        <p className="mt-2 text-ink-muted">ما ترفعه هنا يظهر في معرض الموقع مباشرة. اختر نجمة على صورة لتصبح صورة الواجهة.</p>
+        <p className="mt-2 text-ink-muted">
+          ما ترفعه هنا يظهر في معرض الموقع مباشرة. ضع نجمة على صورة لتصبح صورة الواجهة، وعلى مقطع فيديو ليُعرض في الصفحة الرئيسية.
+        </p>
       </div>
 
       <div
@@ -198,7 +201,7 @@ export function MediaManager() {
                     {item.name}
                   </p>
                   {item.status === "error" ? (
-                    <p className="text-sm text-red-700 dark:text-red-400">{item.error}</p>
+                    <p className="text-sm text-red-700">{item.error}</p>
                   ) : (
                     <div className="mt-2 h-1 overflow-hidden rounded-full bg-surface-2">
                       <div
@@ -251,20 +254,18 @@ export function MediaManager() {
                       </span>
                     </>
                   )}
-                  {item.type === "image" && (
-                    <button
-                      type="button"
-                      onClick={() => setFeatured(item)}
-                      aria-pressed={item.featured}
-                      aria-label={item.featured ? "إلغاء صورة الواجهة" : "اجعلها صورة الواجهة"}
-                      title={item.featured ? "صورة الواجهة" : "اجعلها صورة الواجهة"}
-                      className={`absolute top-3 right-3 grid size-10 place-items-center rounded-full backdrop-blur-sm transition-[transform,background-color] duration-300 ease-spring active:scale-90 ${
-                        item.featured ? "bg-accent text-accent-ink" : "bg-black/40 text-white hover:bg-black/60"
-                      }`}
-                    >
-                      <Star size={18} weight={item.featured ? "fill" : "regular"} />
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => setFeatured(item)}
+                    aria-pressed={item.featured}
+                    aria-label={featureLabel(item)}
+                    title={featureLabel(item)}
+                    className={`absolute top-3 right-3 grid size-10 place-items-center rounded-full backdrop-blur-sm transition-[transform,background-color] duration-300 ease-spring active:scale-90 ${
+                      item.featured ? "bg-accent text-accent-ink" : "bg-black/40 text-white hover:bg-black/60"
+                    }`}
+                  >
+                    <Star size={18} weight={item.featured ? "fill" : "regular"} />
+                  </button>
                 </div>
                 <div className="flex items-center gap-2 px-1 pb-1">
                   <input
@@ -284,4 +285,11 @@ export function MediaManager() {
       )}
     </div>
   );
+}
+
+function featureLabel(item: MediaItem) {
+  if (item.type === "video") {
+    return item.featured ? "إلغاء عرض المقطع في الصفحة الرئيسية" : "اعرض هذا المقطع في الصفحة الرئيسية";
+  }
+  return item.featured ? "إلغاء صورة الواجهة" : "اجعلها صورة الواجهة";
 }

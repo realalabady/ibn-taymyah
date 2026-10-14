@@ -59,7 +59,7 @@ export function PostsList() {
           <p className="mt-2 text-ink-muted">المقالات المنشورة تظهر في المدونة وفي الصفحة الرئيسية.</p>
         </div>
         <Link
-          href="/admin/posts/edit"
+          href="/login/posts/edit"
           className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-accent-ink transition-transform duration-200 active:scale-[0.97]"
         >
           <Plus size={18} weight="bold" />
@@ -84,7 +84,7 @@ export function PostsList() {
               <div className="relative size-16 shrink-0 overflow-hidden rounded-2xl bg-accent-soft">
                 {post.coverUrl && <Image src={post.coverUrl} alt="" fill sizes="64px" className="object-cover" />}
               </div>
-              <Link href={`/admin/posts/edit?id=${post.id}`} className="min-w-0 flex-1">
+              <Link href={`/login/posts/edit?id=${post.id}`} className="min-w-0 flex-1">
                 <p className="truncate font-medium transition-colors hover:text-accent">{post.title || "بدون عنوان"}</p>
                 <p className="mt-1 flex items-center gap-2 text-sm text-ink-muted">
                   <span

@@ -83,22 +83,33 @@ export async function getMedia(count = 60): Promise<MediaItem[]> {
   });
 }
 
-export async function getFeaturedImage(): Promise<MediaItem | null> {
+// The manager stars one photo (the hero) and one video (the video section).
+// Both share the `featured` flag, so read the starred items once and split by type.
+async function getFeatured(): Promise<MediaItem[]> {
   "use cache";
   cacheLife("hours");
   cacheTag(CONTENT_TAG);
-  return safe("getFeaturedImage", null, async () => {
+  return safe("getFeatured", [], async () => {
     const snap = await getDocs(
       query(
         collection(db(), "media"),
         where("featured", "==", true),
         orderBy("createdAt", "desc"),
-        limit(1),
+        limit(10),
       ),
     );
-    const first = snap.docs[0];
-    return first ? toMedia(first.id, first.data()) : null;
+    return snap.docs.map((d) => toMedia(d.id, d.data()));
   });
+}
+
+export async function getFeaturedImage(): Promise<MediaItem | null> {
+  const featured = await getFeatured();
+  return featured.find((m) => m.type === "image") ?? null;
+}
+
+export async function getFeaturedVideo(): Promise<MediaItem | null> {
+  const featured = await getFeatured();
+  return featured.find((m) => m.type === "video") ?? null;
 }
 
 export async function getPosts(count?: number): Promise<Post[]> {

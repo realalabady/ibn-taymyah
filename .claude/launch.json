@@ -6,6 +6,18 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "firebase-emulators",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "emulators"],
+      "port": 8080
+    },
+    {
+      "name": "ibn-taymyah-emulated",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:emulated"],
+      "port": 3001
     }
   ]
 }

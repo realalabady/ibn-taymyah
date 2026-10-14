@@ -1,62 +1,58 @@
 import Image from "next/image";
-import { ArrowUpLeft } from "@phosphor-icons/react/ssr";
+import { ArrowDown } from "@phosphor-icons/react/ssr";
 import { getFeaturedImage } from "@/lib/data";
-import { whatsappLink } from "@/site.config";
 import { MaskReveal, Stagger, StaggerItem } from "@/components/motion/Stagger";
-import { Button } from "./Button";
+
+// Shown until the manager stars a photo of the complex in the admin panel.
+const DEFAULT_PHOTO = { src: "/hero-default.jpg", alt: "مصحف على حامل خشبي بجوار نافذة مسجد" };
 
 export async function Hero() {
   const featured = await getFeaturedImage();
+  const photo = featured
+    ? { src: featured.url, alt: featured.caption || "من حلقات التحفيظ" }
+    : DEFAULT_PHOTO;
 
   return (
-    <section className="relative px-4 pt-28 pb-16 md:pt-32 md:pb-24">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[1.05fr_1fr] md:gap-16">
-        <Stagger className="flex flex-col items-start gap-7">
-          <StaggerItem>
-            <h1 className="font-display text-[2.6rem] leading-[1.25] font-semibold tracking-tight md:text-6xl md:leading-[1.2]">
-              نُنشئ جيلاً يحفظ القرآن{" "}
-              <span className="bg-[linear-gradient(transparent_68%,var(--sun-soft)_68%,var(--sun-soft)_94%,transparent_94%)] text-accent">
-                ويعمل به
-              </span>
-            </h1>
-          </StaggerItem>
-          <StaggerItem>
-            <p className="max-w-[44ch] text-lg leading-relaxed text-ink-muted">
-              حلقات تحفيظ للأبناء تجمع بين إتقان الحفظ وحسن التلاوة والتربية على أخلاق القرآن، بإشراف معلمين متقنين.
-            </p>
-          </StaggerItem>
-          <StaggerItem className="flex flex-wrap items-center gap-3">
-            <Button href={whatsappLink} external icon={ArrowUpLeft}>
-              سجّل ابنك
-            </Button>
-            <Button href="#program" variant="ghost">
-              تعرّف على البرنامج
-            </Button>
-          </StaggerItem>
-        </Stagger>
+    <section className="p-2 md:p-3">
+      <MaskReveal className="relative isolate flex min-h-[88dvh] overflow-hidden rounded-[2rem] bg-ink">
+        <Image src={photo.src} alt={photo.alt} fill priority sizes="100vw" className="-z-20 object-cover" />
 
-        <MaskReveal className="relative">
-          <div className="rounded-[2rem] bg-surface-2/70 p-2 ring-1 ring-line">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-accent-soft md:aspect-[5/6]">
-              {featured ? (
-                <Image
-                  src={featured.url}
-                  alt={featured.caption || "من حلقات التحفيظ"}
-                  fill
-                  priority
-                  sizes="(min-width: 768px) 45vw, 100vw"
-                  className="media-outline object-cover"
-                />
-              ) : (
-                <div className="flex h-full flex-col items-center justify-center gap-4 bg-[radial-gradient(circle_at_50%_38%,var(--sun-soft)_0%,var(--sun-soft)_34%,transparent_70%)] p-10 text-center">
-                  <span className="font-quran text-[7rem] leading-none text-accent md:text-[9rem]">اقْرَأْ</span>
-                  <span className="text-sm text-ink-muted">بِاسْمِ رَبِّكَ الَّذِي خَلَقَ</span>
-                </div>
-              )}
-            </div>
-          </div>
-        </MaskReveal>
-      </div>
+        {/* Darken the side the text sits on (the right, in RTL) so the white copy stays legible. */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(6_20_10/0.88),rgb(6_20_10/0.5)_55%,rgb(6_20_10/0.25))] md:bg-[linear-gradient(to_left,rgb(6_20_10/0.85),rgb(6_20_10/0.55)_40%,rgb(6_20_10/0.05)_75%)]"
+        />
+
+        <div className="mx-auto flex w-full max-w-6xl items-end px-5 pt-32 pb-12 md:items-center md:px-8 md:pb-20">
+          <Stagger className="flex max-w-xl flex-col items-start gap-7 text-white">
+            <StaggerItem>
+              <h1 className="font-display text-[2.6rem] leading-[1.25] font-semibold tracking-tight md:text-6xl md:leading-[1.2]">
+                نُنشئ جيلاً يحفظ القرآن <span className="text-sun">ويعمل به</span>
+              </h1>
+            </StaggerItem>
+            <StaggerItem>
+              <p className="max-w-[44ch] text-lg leading-relaxed text-white/80">
+                حلقات تحفيظ للأبناء تجمع بين إتقان الحفظ وحسن التلاوة والتربية على أخلاق القرآن، بإشراف معلمين متقنين.
+              </p>
+            </StaggerItem>
+            <StaggerItem>
+              <a
+                href="#program"
+                className="group inline-flex items-center gap-3 rounded-full bg-white/10 px-5 py-3 font-medium text-white ring-1 ring-white/25 backdrop-blur-md transition-[background-color,transform] duration-300 ease-spring hover:bg-white/20 active:scale-[0.97]"
+              >
+                تعرّف على البرنامج
+                <ArrowDown size={18} className="transition-transform duration-500 ease-spring group-hover:translate-y-0.5" />
+              </a>
+            </StaggerItem>
+          </Stagger>
+        </div>
+
+        {featured?.caption && (
+          <p className="absolute bottom-5 left-5 hidden max-w-[28ch] rounded-full bg-black/35 px-4 py-2 text-sm text-white/85 backdrop-blur-md md:block">
+            {featured.caption}
+          </p>
+        )}
+      </MaskReveal>
     </section>
   );
 }
